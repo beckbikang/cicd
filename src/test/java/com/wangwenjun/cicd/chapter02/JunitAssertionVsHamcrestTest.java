@@ -37,6 +37,11 @@ public class JunitAssertionVsHamcrestTest
     }
 
     @Test
+    public void assertArray2() {
+        assertThat(names, hasItem("Alex"));
+    }
+
+    @Test
     public void assertThatAny()
     {
         assertThat("Hello", anyOf(is("Hello"), equalTo("Hello"), containsString("llo"), endsWith("LLO")));

@@ -24,6 +24,7 @@ public class HamcrestUsageTest
     {
         final SimpleBean bean = new SimpleBean();
         assertThat(bean, hasProperty("name"));
+        assertThat(bean, hasProperty("age"));
     }
 
     @Test
@@ -32,6 +33,9 @@ public class HamcrestUsageTest
         final SimpleBean bean = new SimpleBean("Alex", 35);
         assertThat(bean, hasProperty("name", is(equalTo("Alex"))));
         assertThat(bean, hasProperty("age", is(equalTo(35))));
+        final SimpleBean bean2 = new SimpleBean("Tom", 15);
+        assertThat(bean2, hasProperty("name", is(equalTo("Tom"))));
+        assertThat(bean2, hasProperty("age", is(equalTo(35))));
     }
 
     @Test
@@ -42,6 +46,7 @@ public class HamcrestUsageTest
         final SimpleBean bean3 = new SimpleBean("Alex", 100);
         assertThat(bean1, samePropertyValuesAs(bean2));
         assertThat(bean1, samePropertyValuesAs(bean3, "age"));
+        assertThat(bean2, samePropertyValuesAs(bean3, "age"));
     }
 
     //below is about collection
@@ -61,6 +66,8 @@ public class HamcrestUsageTest
         String[] actually = {"foo", "bar"};
         assertThat(actually, hasItemInArray(is("foo")));
         assertThat(actually, hasItemInArray(startsWith("ba")));
+        assertThat(actually, hasItemInArray(is("bar")));
+        assertThat(actually, hasItemInArray(startsWith("fo")));
     }
 
     @Test
@@ -71,6 +78,8 @@ public class HamcrestUsageTest
         assertThat(actually, arrayWithSize(is(3)));
         assertThat(actually, arrayWithSize(equalTo(3)));
         assertThat(actually, is(not(emptyArray())));
+
+        assertThat(actually, arrayWithSize(3));
     }
 
     @Test
@@ -80,6 +89,9 @@ public class HamcrestUsageTest
         assertThat(actually, arrayContaining(1, 2, 3));
         assertThat(actually, arrayContaining(equalTo(1), equalTo(2), equalTo(3)));
         assertThat(actually, arrayContaining(Arrays.asList(equalTo(1), equalTo(2), equalTo(3))));
+        assertThat(actually, arrayContaining(1,2,3));
+
+        assertThat(actually, arrayContaining(equalTo(1),equalTo(2),equalTo(3)));
     }
 
     @Test
@@ -113,6 +125,9 @@ public class HamcrestUsageTest
         Collection<Integer> actually = Collections.emptyList();
         assertThat(actually, emptyIterable());
         assertThat(actually, emptyIterableOf(Integer.class));
+        Collection<String> actually2 = Collections.emptyList();
+        assertThat(actually2, emptyIterable());
+        assertThat(actually2, emptyIterableOf(String.class));
     }
 
     @Test
@@ -145,6 +160,8 @@ public class HamcrestUsageTest
         assertThat(1, isIn(new Integer[]{1, 2, 3}));
         assertThat(1, is(in(new Integer[]{1, 2, 3})));
         assertThat(1, oneOf(1, 2, 3));
+
+        assertThat(22, is(in(Arrays.asList(11,22,33))));
     }
 
     @Test
